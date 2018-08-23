@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>收银台</title>
+	</head>
+
+	<body>
+		<h4>利民药店收银台</h4>
+		<hr/>
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>条形码：</td>
+				<td><input type="search" name="No" value="010344" placeholder="请输入条形码" id="tiao"/></td>
+				<td>&nbsp;&nbsp;<button onclick="getAllbyName()" type="button" >搜索</button></td>
+			</tr>
+		</table>
+		<hr/>
+		<table  border="1" cellpadding="0" cellspacing="0" style="width: 700px;" id="info">
+
+			<tr>
+				<th>条形码</th>
+				<th>物品名称</th>
+				<th>[零售价]</th>
+				<th>数量</th>
+				<th>单位</th>
+				<th>合计金额</th>
+			</tr>
+			<!--<tr>
+				<td colspan="6" style="text-align: center;">暂无药品！</td>
+			</tr>-->
+			<tr>
+				<td>010343</td>
+				<td>阿莫西林</td>
+				<td>￥64.00</td>
+				<td><input type="number" name="num" style="width:80px;" value="1" /></td>
+				<td>箱</td>
+				<td>￥64.00</td>
+			</tr>
+			<tr>
+				<td>010344</td>
+				<td>左氧氟沙星滴眼液</td>
+				<td>￥19.00</td>
+				<td><input type="number" name="num" style="width:80px;" value="1" /></td>
+				<td>瓶</td>
+				<td>￥19.00</td>
+			</tr>
+			<!--<tr>
+				<td>010343</td>
+				<td>复方红豆杉胶囊</td>
+				<td>￥23.00</td>
+				<td><input type="number" name="num" style="width:80px;" value="2" /></td>
+				<td>盒</td>
+				<td>￥46.00</td>
+			</tr>
+			<tr>
+				<td>010343</td>
+				<td>安络化纤丸</td>
+				<td>￥58.00</td>
+				<td><input type="number" name="num" style="width:80px;" value="1" /></td>
+				<td>箱</td>
+				<td>￥58.00</td>
+			</tr>-->
+
+		</table>
+		<hr/>
+
+		<table border="0" >
+			<tr>
+				<td style="font-weight: bold;">总计</td>
+				<td> </td>
+			</tr>
+			<tr>
+				<td>商品总数量：</td>
+				<td>2</td>
+			</tr>
+			<tr>
+				<td>应收金额：</td>
+				<td>￥83.00 </td>
+			</tr>
+			<tr>
+				<td>实收金额：</td>
+				<td>￥<input type="number"  value="100"/> </td>
+			</tr>
+			<tr>
+				<td>找零：</td>
+				<td>￥<input type="number"  value="17.00"/> </td>
+			</tr>
+
+		</table>
+		<hr />
+		<button type="button">结算</button>
+	</body>
+
+	<script src="/js/jquery-1.12.4.js"></script>
+	<script>
+	$(function () {
+	getAll();
+	})
+
+    function  getAll() {
+        $.ajax({
+            "url":"http://localhost:8025/getAll1",
+            "dataType":"jsonp",
+            "jsonp":"callback",
+            "jsonpCallback":"flightHandler",
+            "success":function (result) {
+                $(result).each(function () {
+                    var sum = this.count * this. retailprice;
+                    $("#info").append("<tr><td>"+this.barCode+"</td><td>"+this.cashierName+"</td><td>"+this.retailprice+"</td><td><input type=\"number\" name=\"num\" style=\"width:80px;\" value="+this.count+" /></td><td>"+this.unit+"</td><td>"+sum+"</td></tr>")
+                })
+
+            },
+
+
+        });
+    }
+
+
+    function  getAllbyName() {
+	    var barCode=$("#tiao").val();
+        $.ajax({
+            "url":"http://localhost:8025/getAllbyName/"+barCode,
+            "dataType":"jsonp",
+            "jsonp":"callback",
+            "jsonpCallback":"flightHandler",
+            "success":function (result) {
+                $("#info").html("");
+                $(result).each(function () {
+
+                    $("#info").append("<tr><td>"+this.barCode+"</td><td>"+this.cashierName+"</td><td>"+this.retailprice+"</td><td>"+this.count+"</td><td>"+this.unit+"</td><td></td></tr>")
+                })
+
+            },
+
+
+        });
+    }
+
+	</script>
+
+</html>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ansaip" />
+        <module name="dome-feign" />
+        <module name="html" />
+        <module name="tigongzhe" />
+        <module name="xiaofeizhe1" />
+        <module name="zhucezhongxin" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="feign" target="1.8" />
+      <module name="xiaofeizhe" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

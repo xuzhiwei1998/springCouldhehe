@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.bdqn.tigongzhe.dao.GradeDao">
+
+
+
+    <select id="getAll" resultType="cn.bdqn.pojo.Grade">
+       SELECT * FROM grade
+    </select>
+    <delete id="del">
+        delete from grade where id=#{id}
+    </delete>
+
+
+    <select id="getAll1" resultType="cn.bdqn.pojo.yaoping">
+       SELECT * FROM cashier
+    </select>
+
+    <insert id="add1" parameterType="cn.bdqn.pojo.yaoping">
+       INSERT INTO cashier VALUES(NULL,#{cashierName},#{count},#{unit},#{univalent},#{retailprice},NOW())
+    </insert>
+
+    <select id="getAllbyName" resultType="cn.bdqn.pojo.yaoping">
+      SELECT * FROM cashier WHERE barCode = #{barCode}
+    </select>
+
+</mapper>

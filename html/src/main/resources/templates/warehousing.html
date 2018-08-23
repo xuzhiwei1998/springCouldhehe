@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>药品入库</title>
+		<link rel="stylesheet" type="text/css" href="css/index.css">
+	</head>
+
+	<body>
+		<h4>药品入库</h4>
+		<hr/>
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>条形码：</td>
+				<td><input type="text" name="No" placeholder="请输入6位数字" id="barCode"/></td>
+			</tr>
+			<tr>
+				<td>药品名称：</td>
+				<td><input type="text" name="No" id="cashierName" /></td>
+			</tr>
+			<tr>
+				<td>库存数量：</td>
+				<td><input type="number" name="No"  id="count"/></td>
+			</tr>
+			<tr>
+				<td>单位：</td>
+				<td>
+					<select id="unit">
+						<option>袋</option>
+						<option>盒</option>
+						<option>件</option>
+						<option>片</option>
+						<option>箱</option>
+						<option>瓶</option>
+						<option>包</option>
+						<option>件</option>
+						<option>个</option>
+					
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>单价：</td>
+				<td><input type="number" name="No"  id="univalent"/></td>
+			</tr>
+			<tr>
+				<td>零售价：</td>
+				<td><input type="number" name="No"  id="retailprice"/></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><button type="submit" onclick="add1()">保存</button>&nbsp;<button type="submit" onclick="t()">查看药品库存</button></td>
+			</tr>
+		</table>
+
+		<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+	</body>
+
+	<script src="/js/jquery-1.12.4.js"></script>
+	<script src="/js/jquery-3.3.1.min.js"></script>
+<script>
+
+    function add1() {
+        var barCode=$("#barCode").val();
+        var cashierName=$("#cashierName").val();
+        var count=$("#count").val();
+        var unit=$("#unit").val();
+        var univalent=$("#univalent").val();
+        var retailprice=$("#retailprice").val();
+        alert(barCode)
+        alert(cashierName)
+        alert(count)
+        alert(unit)
+        alert(univalent)
+        alert(retailprice)
+
+
+        $.ajax({
+            "url":"http://localhost:8025/add1",
+            "data":{
+                'barCode':barCode,
+                'cashierName':cashierName,
+                'count':count,
+                'unit':unit,
+                'univalent':univalent,
+                'retailprice':retailprice,
+            },
+            "type":"post",
+            "dataType":"jsonp",
+            "jsonp": "callback",
+            "jsonpCallback": "flightHandler",
+            "success":function(res){
+                if(res>0){
+                    alert("添加成功");
+                }else{
+                    alert("添加失败");
+                }
+
+            }
+        })
+    }
+    function t() {
+        window.location.href="show";
+    }
+</script>
+
+</html>
